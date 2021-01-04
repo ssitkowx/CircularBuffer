@@ -3,7 +3,7 @@
 # I. Description:
 Template for projects and packages.
 
-# II. Assumption:
+# II. Assumptions:
 The code stored here is a generic code, which means:
 - The code should be dependent only on C/C++ language libraries,
 - The code should work in various environments (Linux, Windows, Embedded) and be independent of them,
