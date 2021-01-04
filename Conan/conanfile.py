@@ -3,14 +3,14 @@ from ConanPackages import ConanPackages
 import os, re
 
 class Conan(ConanFile):
-    name            = "Template"
+    name            = "CircularBuffer"
     version         = "1.0"
     user            = "ssitkowx"
     channel         = "stable"
     license         = "freeware"
     repoUrl         = "https://github.com/ssitkowx"
     url             = repoUrl + '/' + name + '.git'
-    description     = "Template for projects and packages"
+    description     = "Generic class for circular buffer"
     settings        = "os", "compiler", "build_type", "arch"
     options         = {"shared": [True, False]}
     default_options = "shared=False"
@@ -21,7 +21,7 @@ class Conan(ConanFile):
     requires        = ["gtest/1.8.1@bincrafters/stable"]
     DownloadsPath   = "C:/Users/sitko/.conan/download"
     PackagesPath    = "C:/Users/sitko/.conan/data"
-    Packages        = []
+    Packages        = ["Utils/1.0@ssitkowx/stable"]
 
     def source (self):   
         ConanPackages.Install (self, self.DownloadsPath, self.repoUrl, self.Packages)
