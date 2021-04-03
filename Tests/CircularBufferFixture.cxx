@@ -16,7 +16,7 @@ TEST_F (CircularBufferFixture, CheckTheConsistencyOfTheDataInTheBufferAfterItHas
     LOGD (MODULE, "Overwrite the data buffer");
     for (uint8_t dataNum = ZERO; dataNum < 2 * CircBufferLen; dataNum++)
     {
-        CircBuffer.Add (dataNum);
+        CircBuffer.Push (dataNum);
     }
 
     LOGD (MODULE, "Check the contents of the buffer");
@@ -24,7 +24,7 @@ TEST_F (CircularBufferFixture, CheckTheConsistencyOfTheDataInTheBufferAfterItHas
     for (uint8_t dataNum = ZERO; dataNum < CircBufferLen; dataNum++)
     {
         uint8_t expectedData = dataNum + TEN;
-        uint8_t foundData    = CircBuffer.Remove ();
+        uint8_t foundData    = CircBuffer.Pop ();
 
         ASSERT_EQ (expectedData, foundData);
     }
@@ -37,19 +37,16 @@ TEST_F (CircularBufferFixture, CheckTheConsistencyOfTheDataInTheBufferAfterItHas
     LOGD (MODULE, "Fill the data buffer");
     for (uint8_t dataNum = ZERO; dataNum < CircBufferLen; dataNum++)
     {
-        CircBuffer.Add (dataNum);
+        CircBuffer.Push (dataNum);
     }
 
     LOGD (MODULE, "Empty the data buffer");
-    for (uint8_t dataNum = ZERO; dataNum < CircBufferLen; dataNum++)
-    {
-        CircBuffer.Remove ();
-    }
+    CircBuffer.Reset ();
 
     LOGD (MODULE, "Check the contents of the buffer");
     for (uint8_t dataNum = ZERO; dataNum < CircBufferLen; dataNum++)
     {
-        ASSERT_EQ (ZERO, CircBuffer.Remove());
+        ASSERT_EQ (ZERO, CircBuffer.Pop ());
     }
 }
 
@@ -60,13 +57,13 @@ TEST_F (CircularBufferFixture, CheckTheConsistencyOfTheDataInTheBufferAfterItHas
     LOGD (MODULE, "Fill the data buffer");
     for (uint8_t dataNum = ZERO; dataNum < CircBufferLen; dataNum++)
     {
-        CircBuffer.Add (dataNum);
+        CircBuffer.Push (dataNum);
     }
 
     LOGD (MODULE, "Empty the data buffer halfway");
     for (uint8_t dataNum = ZERO; dataNum < CircBufferLen * 0.5; dataNum++)
     {
-        CircBuffer.Remove ();
+        CircBuffer.Pop ();
     }
 
     LOGD (MODULE, "Check the contents of the buffer");
@@ -74,11 +71,11 @@ TEST_F (CircularBufferFixture, CheckTheConsistencyOfTheDataInTheBufferAfterItHas
     {
         if (dataNum < CircBufferLen * 0.5)
         {
-            ASSERT_EQ (dataNum + 5, CircBuffer.Remove ());
+            ASSERT_EQ (dataNum + 5, CircBuffer.Pop ());
         }
         else
         {
-            ASSERT_EQ (ZERO, CircBuffer.Remove ());
+            ASSERT_EQ (ZERO, CircBuffer.Pop ());
         }
     }
 }

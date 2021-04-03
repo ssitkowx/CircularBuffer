@@ -18,13 +18,18 @@ class CircularBuffer
         CircularBuffer () = default;
         ~CircularBuffer () = default;
 
-        void Add (DATA_TYPE v_data)
+        void Push (DATA_TYPE v_data)
         {
             buffer [begin++] = v_data;
             if (begin == LEN) { begin = ZERO; }
         }
 
-        DATA_TYPE Remove (void)
+        void Reset (void)
+        { 
+            for (uint16_t bufPos = ZERO; bufPos < LEN; bufPos++) { Pop (); }
+        }
+
+        DATA_TYPE Pop (void)
         {
             DATA_TYPE data = buffer [end];
             buffer [end++] = ZERO;
