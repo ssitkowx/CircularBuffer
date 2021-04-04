@@ -26,7 +26,10 @@ class CircularBuffer
 
         void Reset (void)
         { 
-            for (uint16_t bufPos = ZERO; bufPos < LEN; bufPos++) { Pop (); }
+            do
+            {
+                Pop ();
+            } while (IsEmpty () == false);
         }
 
         DATA_TYPE Pop (void)
