@@ -4,7 +4,7 @@ import os
 
 class Conan(ConanFile):
     name            = "CircularBuffer"
-    version         = "1.0"
+    version         = "1.1"
     user            = "ssitkowx"
     channel         = "stable"
     license         = "freeware"
@@ -21,9 +21,9 @@ class Conan(ConanFile):
     requires        = ["gtest/cci.20210126"]
     packagesPath    = "/home/sylwester/.conan/data"
     downloadsPath   = "/home/sylwester/.conan/download"
-    packages        = ["Utils/1.0@ssitkowx/stable",
-                      "Logger/1.0@ssitkowx/stable",
-                      "LoggerHw/1.0@ssitkowx/stable"]
+    packages        = ["Utils/1.1@ssitkowx/stable",
+                      "Logger/1.1@ssitkowx/stable",
+                      "LoggerHw/1.1@ssitkowx/stable"]
 
     def source (self):   
         conanPackages.install (self, self.downloadsPath, self.repoUrl, self.packages)
