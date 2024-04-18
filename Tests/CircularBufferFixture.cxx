@@ -23,7 +23,7 @@ TEST_F (CircularBufferFixture, CheckTheConsistencyOfTheDataInTheBufferAfterItHas
 
     for (uint8_t dataNum = ZERO; dataNum < CircBufferLen; dataNum++)
     {
-        uint8_t expectedData = dataNum + TEN;
+        uint8_t expectedData = dataNum;
         uint8_t foundData    = CircBuffer.Remove ();
 
         ASSERT_EQ (expectedData, foundData);
@@ -40,6 +40,8 @@ TEST_F (CircularBufferFixture, CheckTheConsistencyOfTheDataInTheBufferAfterItHas
         CircBuffer.Add (dataNum);
     }
 
+    ASSERT_EQ (true, CircBuffer.IsFull ());
+
     LOGD (MODULE, "Empty the data buffer");
     CircBuffer.Clear ();
 
@@ -48,6 +50,8 @@ TEST_F (CircularBufferFixture, CheckTheConsistencyOfTheDataInTheBufferAfterItHas
     {
         ASSERT_EQ (ZERO, CircBuffer.Remove ());
     }
+
+    ASSERT_EQ (true, CircBuffer.IsEmpty ());
 }
 
 TEST_F (CircularBufferFixture, CheckTheConsistencyOfTheDataInTheBufferAfterItHasBeenFilledAndHalfEmptied)

@@ -1,4 +1,4 @@
-CMAKE_MINIMUM_REQUIRED (VERSION 3.27)
+CMAKE_MINIMUM_REQUIRED (VERSION 3.16)
 PROJECT                (circularbuffer)
 
 SET (ProjectName            Project)
