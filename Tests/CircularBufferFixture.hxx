@@ -23,7 +23,7 @@ class CircularBufferFixture : public ::testing::Test
         CircularBuffer <uint8_t, CircBufferLen> CircBuffer;
 
         void TestBody () override { }
-        void SetUp    () override { CircBuffer.Reset (); }
+        void SetUp    () override { CircBuffer.Clear (); }
 };
 
 ///////////////////////////////////////////////////////////////////////////////
