@@ -4,7 +4,6 @@
 //////////////////////////////// INCLUDES /////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
-#include <mutex>
 #include "Utils.h"
 #include <stdint.h>
 
@@ -12,16 +11,19 @@
 /////////////////////////// CLASSES/STRUCTURES ////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
-template <class DATA_TYPE, const uint16_t LEN_MAX>
+template <class DERIVED_TYPE, typename DATA_TYPE, const uint16_t LEN_MAX>
 class CircularBuffer
 {
+    friend DERIVED_TYPE;
+    DERIVED_TYPE & derivedType = static_cast <DERIVED_TYPE &>(*this);
+
     public:
         CircularBuffer () = default;
         ~CircularBuffer () = default;
 
         void Add (const DATA_TYPE & vData)
         {
-            std::lock_guard <std::mutex> lock (mutex);
+            lock ();
 
             if (IsFull ()) { return; }
 
@@ -29,6 +31,8 @@ class CircularBuffer
             data [head++] = vData;
 
             if (head == LEN_MAX) { head = ZERO; }
+
+            unlock ();
         }
 
         void Clear (void)
@@ -41,7 +45,7 @@ class CircularBuffer
 
         DATA_TYPE Remove (void)
         {
-            std::lock_guard <std::mutex> lock (mutex);
+            lock ();
 
             if (IsEmpty ()) { return 0; }
 
@@ -49,6 +53,8 @@ class CircularBuffer
 
             const DATA_TYPE result = data [tail++];
             if (tail == LEN_MAX) { tail = ZERO; }
+
+            unlock ();
             return result;
         }
 
@@ -57,11 +63,13 @@ class CircularBuffer
         bool     IsEmpty (void) const { return counterLen == ZERO;    }
 
     private:
-        std::mutex mutex;
         DATA_TYPE  head           = ZERO;
         DATA_TYPE  tail           = ZERO;
         DATA_TYPE  counterLen     = ZERO;
         DATA_TYPE  data [LEN_MAX] = { ZERO };
+
+        void lock   (void) { derivedType.lock   (); }
+        void unlock (void) { derivedType.unlock (); }
 };
 
 ///////////////////////////////////////////////////////////////////////////////

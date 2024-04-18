@@ -5,7 +5,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <gtest/gtest.h>
-#include "CircularBuffer.h"
+#include "CircularBufferMock.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 /////////////////////////// CLASSES/STRUCTURES ////////////////////////////////
@@ -19,8 +19,8 @@ class CircularBufferFixture : public ::testing::Test
         CircularBufferFixture () = default;
         ~CircularBufferFixture () = default;
 
-        static constexpr uint16_t               CircBufferLen = TEN_BYTES;
-        CircularBuffer <uint8_t, CircBufferLen> CircBuffer;
+        static constexpr uint16_t                                             CircBufferLen = TEN_BYTES;
+        CircularBuffer <CircularBufferMock <uint8_t, CircBufferLen>, uint8_t, CircBufferLen> CircBuffer;
 
         void TestBody () override { }
         void SetUp    () override { CircBuffer.Clear (); }
