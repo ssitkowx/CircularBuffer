@@ -16,15 +16,15 @@ TEST_F (CircularBufferFixture, CheckTheConsistencyOfTheDataInTheBufferAfterItHas
     LOGD (MODULE, "Overwrite the data buffer");
     for (uint8_t dataNum = ZERO; dataNum < 2 * CircBufferLen; dataNum++)
     {
-        CircBuffer.Add (dataNum);
+        CircBuffer.Add ((EId)dataNum);
     }
 
     LOGD (MODULE, "Check the contents of the buffer");
 
     for (uint8_t dataNum = ZERO; dataNum < CircBufferLen; dataNum++)
     {
-        uint8_t expectedData = dataNum;
-        uint8_t foundData    = CircBuffer.Remove ();
+        EId expectedData = (EId)dataNum;
+        EId foundData    = CircBuffer.Remove ();
 
         ASSERT_EQ (expectedData, foundData);
     }
@@ -37,7 +37,7 @@ TEST_F (CircularBufferFixture, CheckTheConsistencyOfTheDataInTheBufferAfterItHas
     LOGD (MODULE, "Fill the data buffer");
     for (uint8_t dataNum = ZERO; dataNum < CircBufferLen; dataNum++)
     {
-        CircBuffer.Add (dataNum);
+        CircBuffer.Add ((EId)dataNum);
     }
 
     ASSERT_EQ (true, CircBuffer.IsFull ());
@@ -48,7 +48,7 @@ TEST_F (CircularBufferFixture, CheckTheConsistencyOfTheDataInTheBufferAfterItHas
     LOGD (MODULE, "Check the contents of the buffer");
     for (uint8_t dataNum = ZERO; dataNum < CircBufferLen; dataNum++)
     {
-        ASSERT_EQ (ZERO, CircBuffer.Remove ());
+        ASSERT_EQ ((EId)ZERO, CircBuffer.Remove ());
     }
 
     ASSERT_EQ (true, CircBuffer.IsEmpty ());
@@ -61,7 +61,7 @@ TEST_F (CircularBufferFixture, CheckTheConsistencyOfTheDataInTheBufferAfterItHas
     LOGD (MODULE, "Fill the data buffer");
     for (uint8_t dataNum = ZERO; dataNum < CircBufferLen; dataNum++)
     {
-        CircBuffer.Add (dataNum);
+        CircBuffer.Add ((EId)dataNum);
     }
 
     LOGD (MODULE, "Empty the data buffer halfway");
@@ -75,11 +75,11 @@ TEST_F (CircularBufferFixture, CheckTheConsistencyOfTheDataInTheBufferAfterItHas
     {
         if (dataNum < CircBufferLen * 0.5)
         {
-            ASSERT_EQ (dataNum + 5, CircBuffer.Remove ());
+            ASSERT_EQ ((EId)(dataNum + FIVE), CircBuffer.Remove ());
         }
         else
         {
-            ASSERT_EQ (ZERO, CircBuffer.Remove ());
+            ASSERT_EQ ((EId)ZERO, CircBuffer.Remove ());
         }
     }
 }

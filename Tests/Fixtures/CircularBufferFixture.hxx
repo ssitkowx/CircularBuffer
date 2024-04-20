@@ -16,11 +16,25 @@ class CircularBufferFixture : public ::testing::Test
     public:
         static constexpr char * MODULE = (char *)"CircularBufferFixture";
 
+        enum class EId : uint8_t
+        {
+            a,
+            b,
+            c,
+            d,
+            e,
+            f,
+            g,
+            h,
+            i,
+            j
+        };
+
         CircularBufferFixture () = default;
         ~CircularBufferFixture () = default;
 
-        static constexpr uint16_t                                             CircBufferLen = TEN_BYTES;
-        CircularBuffer <CircularBufferMock <uint8_t, CircBufferLen>, uint8_t, CircBufferLen> CircBuffer;
+        static constexpr uint16_t                                     CircBufferLen = TEN_BYTES;
+        CircularBuffer <CircularBufferMock <EId, CircBufferLen>, EId, CircBufferLen> CircBuffer;
 
         void TestBody () override { }
         void SetUp    () override { CircBuffer.Clear (); }
