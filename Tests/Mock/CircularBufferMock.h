@@ -29,8 +29,12 @@ class CircularBufferMock : public CircularBuffer<CircularBufferMock <DATA_TYPE, 
     private:
         std::mutex mutex;
 
-        void lock   (void) { mutex.try_lock (); }
-        void unlock (void) { mutex.unlock   (); }
+        bool lock (void)
+        {
+            mutex.try_lock ();
+            return true;
+        }
+        void unlock (void) { mutex.unlock (); }
 };
 
 ///////////////////////////////////////////////////////////////////////////////

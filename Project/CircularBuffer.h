@@ -23,9 +23,13 @@ class CircularBuffer
 
         void Add (const DATA_TYPE & vData)
         {
-            lock ();
+            if (lock () == false) { return; }
 
-            if (IsFull ()) { return; }
+            if (IsFull ())
+            {
+                unlock ();
+                return;
+            }
 
             counterLen++;
             data [head++] = vData;
@@ -45,9 +49,13 @@ class CircularBuffer
 
         DATA_TYPE Remove (void)
         {
-            lock ();
+            if (lock () == false) { return DATA_TYPE (); }
 
-            if (IsEmpty ()) { return DATA_TYPE (); }
+            if (IsEmpty ())
+            {
+                unlock ();
+                return DATA_TYPE ();
+            }
 
             counterLen--;
 
@@ -68,8 +76,8 @@ class CircularBuffer
         uint16_t  counterLen     = ZERO;
         DATA_TYPE data [LEN_MAX] = { };
 
-        void lock   (void) { derivedType.lock   (); }
-        void unlock (void) { derivedType.unlock (); }
+        bool lock   (void) { return derivedType.lock (); }
+        void unlock (void) { derivedType.unlock ();      }
 };
 
 ///////////////////////////////////////////////////////////////////////////////
