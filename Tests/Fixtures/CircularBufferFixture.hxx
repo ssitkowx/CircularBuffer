@@ -14,7 +14,7 @@
 class CircularBufferFixture : public ::testing::Test
 {
     public:
-        static constexpr char * MODULE = (char *)"CircularBufferFixture";
+        static constexpr char * Module = (char *)"CircularBufferFixture";
 
         enum class EId : uint8_t
         {
@@ -33,7 +33,7 @@ class CircularBufferFixture : public ::testing::Test
         CircularBufferFixture () = default;
         ~CircularBufferFixture () = default;
 
-        static constexpr uint16_t                                     CircBufferLen = TEN_BYTES;
+        static constexpr uint16_t                                     CircBufferLen = 10;
         CircularBuffer <CircularBufferMock <EId, CircBufferLen>, EId, CircBufferLen> CircBuffer;
 
         void TestBody () override { }

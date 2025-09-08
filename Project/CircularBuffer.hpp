@@ -5,7 +5,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <stdint.h>
-#include "Utils.hpp"
 
 ///////////////////////////////////////////////////////////////////////////////
 /////////////////////////// CLASSES/STRUCTURES ////////////////////////////////
@@ -34,7 +33,7 @@ class CircularBuffer
             counterLen++;
             data [head++] = vData;
 
-            if (head == LEN_MAX) { head = ZERO; }
+            if (head == LEN_MAX) { head = 0; }
 
             unlock ();
         }
@@ -60,7 +59,7 @@ class CircularBuffer
             counterLen--;
 
             const DATA_TYPE result = data [tail++];
-            if (tail == LEN_MAX) { tail = ZERO; }
+            if (tail == LEN_MAX) { tail = 0; }
 
             unlock ();
             return result;
@@ -68,12 +67,12 @@ class CircularBuffer
 
         uint16_t Size    (void) const { return counterLen;            }
         bool     IsFull  (void) const { return counterLen == LEN_MAX; }
-        bool     IsEmpty (void) const { return counterLen == ZERO;    }
+        bool     IsEmpty (void) const { return counterLen == 0;    }
 
     private:
-        uint16_t  head           = ZERO;
-        uint16_t  tail           = ZERO;
-        uint16_t  counterLen     = ZERO;
+        uint16_t  head           = 0;
+        uint16_t  tail           = 0;
+        uint16_t  counterLen     = 0;
         DATA_TYPE data [LEN_MAX] = { };
 
         bool lock   (void) { return derivedType.lock (); }

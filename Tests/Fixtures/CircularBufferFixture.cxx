@@ -11,17 +11,17 @@
 
 TEST_F (CircularBufferFixture, CheckTheConsistencyOfTheDataInTheBufferAfterItHasBeenOverwritten )
 {
-    LOGW (MODULE, "CheckTheConsistencyOfTheDataInTheBufferAfterItHasBeenOverwritten");
+    LOGW (Module, "CheckTheConsistencyOfTheDataInTheBufferAfterItHasBeenOverwritten");
 
-    LOGD (MODULE, "Overwrite the data buffer");
-    for (uint8_t dataNum = ZERO; dataNum < 2 * CircBufferLen; dataNum++)
+    LOGD (Module, "Overwrite the data buffer");
+    for (uint8_t dataNum = 0; dataNum < 2 * CircBufferLen; dataNum++)
     {
         CircBuffer.Add ((EId)dataNum);
     }
 
-    LOGD (MODULE, "Check the contents of the buffer");
+    LOGD (Module, "Check the contents of the buffer");
 
-    for (uint8_t dataNum = ZERO; dataNum < CircBufferLen; dataNum++)
+    for (uint8_t dataNum = 0; dataNum < CircBufferLen; dataNum++)
     {
         EId expectedData = (EId)dataNum;
         EId foundData    = CircBuffer.Remove ();
@@ -32,23 +32,23 @@ TEST_F (CircularBufferFixture, CheckTheConsistencyOfTheDataInTheBufferAfterItHas
 
 TEST_F (CircularBufferFixture, CheckTheConsistencyOfTheDataInTheBufferAfterItHasBeenFilledAndFullyEmptied)
 {
-    LOGW (MODULE, "CheckTheConsistencyOfTheDataInTheBufferAfterItHasBeenFilledAndFullyEmptied");
+    LOGW (Module, "CheckTheConsistencyOfTheDataInTheBufferAfterItHasBeenFilledAndFullyEmptied");
 
-    LOGD (MODULE, "Fill the data buffer");
-    for (uint8_t dataNum = ZERO; dataNum < CircBufferLen; dataNum++)
+    LOGD (Module, "Fill the data buffer");
+    for (uint8_t dataNum = 0; dataNum < CircBufferLen; dataNum++)
     {
         CircBuffer.Add ((EId)dataNum);
     }
 
     ASSERT_EQ (true, CircBuffer.IsFull ());
 
-    LOGD (MODULE, "Empty the data buffer");
+    LOGD (Module, "Empty the data buffer");
     CircBuffer.Clear ();
 
-    LOGD (MODULE, "Check the contents of the buffer");
-    for (uint8_t dataNum = ZERO; dataNum < CircBufferLen; dataNum++)
+    LOGD (Module, "Check the contents of the buffer");
+    for (uint8_t dataNum = 0; dataNum < CircBufferLen; dataNum++)
     {
-        ASSERT_EQ ((EId)ZERO, CircBuffer.Remove ());
+        ASSERT_EQ ((EId)0, CircBuffer.Remove ());
     }
 
     ASSERT_EQ (true, CircBuffer.IsEmpty ());
@@ -56,30 +56,30 @@ TEST_F (CircularBufferFixture, CheckTheConsistencyOfTheDataInTheBufferAfterItHas
 
 TEST_F (CircularBufferFixture, CheckTheConsistencyOfTheDataInTheBufferAfterItHasBeenFilledAndHalfEmptied)
 {
-    LOGW (MODULE, "CheckTheConsistencyOfTheDataInTheBufferAfterItHasBeenFilledAndHalfEmptied");
+    LOGW (Module, "CheckTheConsistencyOfTheDataInTheBufferAfterItHasBeenFilledAndHalfEmptied");
 
-    LOGD (MODULE, "Fill the data buffer");
-    for (uint8_t dataNum = ZERO; dataNum < CircBufferLen; dataNum++)
+    LOGD (Module, "Fill the data buffer");
+    for (uint8_t dataNum = 0; dataNum < CircBufferLen; dataNum++)
     {
         CircBuffer.Add ((EId)dataNum);
     }
 
-    LOGD (MODULE, "Empty the data buffer halfway");
-    for (uint8_t dataNum = ZERO; dataNum < CircBufferLen * 0.5; dataNum++)
+    LOGD (Module, "Empty the data buffer halfway");
+    for (uint8_t dataNum = 0; dataNum < CircBufferLen * 0.5; dataNum++)
     {
         CircBuffer.Remove ();
     }
 
-    LOGD (MODULE, "Check the contents of the buffer");
-    for (uint8_t dataNum = ZERO; dataNum < CircBufferLen; dataNum++)
+    LOGD (Module, "Check the contents of the buffer");
+    for (uint8_t dataNum = 0; dataNum < CircBufferLen; dataNum++)
     {
         if (dataNum < CircBufferLen * 0.5)
         {
-            ASSERT_EQ ((EId)(dataNum + FIVE), CircBuffer.Remove ());
+            ASSERT_EQ ((EId)(dataNum + 5), CircBuffer.Remove ());
         }
         else
         {
-            ASSERT_EQ ((EId)ZERO, CircBuffer.Remove ());
+            ASSERT_EQ ((EId)0, CircBuffer.Remove ());
         }
     }
 }
